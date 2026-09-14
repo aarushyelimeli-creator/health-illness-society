@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ✏️ EDIT: Change this to your website title (shows in browser tab) -->
+  <title>Historical Case Study</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       DO NOT EDIT THE CSS BELOW
+       (unless you want to change colors/fonts)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    :root {
+      --dark:        #080C17;
+      --navy:        #0F1524;
+      --primary:     #1B3A6B;
+      --accent:      #E05C1A;
+      --accent-dim:  #FEF3EC;
+      --bg:          #ECEEF5;
+      --white:       #FFFFFF;
+      --text:        #1B2535;
+      --muted:       #5C6B80;
+      --border:      #D0D8E8;
+      --ph-bg:       #EDF1FD;
+      --ph-border:   #BBCAEF;
+      --sidebar-w:   260px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      line-height: 1;
+    }
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--navy);
+      position: fixed;
+      top: 0; left: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .sidebar-top {
+      padding: 2rem 1.75rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-eyebrow {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .sidebar-site-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.4;
+    }
+    .sidebar-site-title.placeholder-title {
+      color: rgba(255,255,255,0.3);
+      font-style: italic;
+    }
+    .nav-section { padding: 1.25rem 0 0.5rem; }
+    .nav-section-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      padding: 0 1.75rem;
+      margin-bottom: 0.25rem;
+    }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.6rem 1.75rem;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.875rem;
+      font-weight: 400;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.15s, background 0.15s;
+      border-left: 3px solid transparent;
+    }
+    .nav-link:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.05); }
+    .nav-link.active { color: #fff; background: rgba(255,255,255,0.07); border-left-color: var(--accent); font-weight: 500; }
+    .nav-link.sub { padding-left: 2.5rem; font-size: 0.82rem; }
+    .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.2); flex-shrink: 0; transition: background 0.15s; }
+    .nav-link.active .nav-dot { background: var(--accent); }
+    .main { margin-left: var(--sidebar-w); flex: 1; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .home-hero { background: var(--dark); padding: 5rem 4.5rem 4rem; position: relative; overflow: hidden; }
+    .home-hero::before { content: ''; position: absolute; top: -160px; right: -160px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(224,92,26,0.12) 0%, transparent 70%); pointer-events: none; }
+    .home-hero::after { content: ''; position: absolute; bottom: -80px; left: 200px; width: 350px; height: 350px; border-radius: 50%; background: radial-gradient(circle, rgba(27,58,107,0.4) 0%, transparent 70%); pointer-events: none; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(224,92,26,0.15); border: 1px solid rgba(224,92,26,0.3); color: #F4955A; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; padding: 0.3rem 0.75rem; border-radius: 20px; margin-bottom: 1.5rem; }
+    .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #F4955A; }
+    .home-hero h1 { font-family: 'DM Serif Display', serif; font-size: 3.6rem; font-weight: 400; color: #fff; line-height: 1.15; max-width: 700px; margin-bottom: 1.5rem; position: relative; }
+    .home-hero h1.is-placeholder { color: rgba(255,255,255,0.2); font-style: italic; }
+    .hero-subtitle { font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 54ch; line-height: 1.75; margin-bottom: 2.5rem; position: relative; }
+    .hero-meta { display: flex; gap: 0; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; position: relative; }
+    .hero-meta-item { padding-right: 2.5rem; border-right: 1px solid rgba(255,255,255,0.08); margin-right: 2.5rem; }
+    .hero-meta-item:last-child { border-right: none; }
+    .hero-meta-item .meta-label { font-size: 0.65rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.3); margin-bottom: 0.35rem; }
+    .hero-meta-item .meta-value { font-size: 0.95rem; font-weight: 500; color: rgba(255,255,255,0.8); }
+    .home-body { padding: 3.5rem 4.5rem; max-width: 900px; }
+    .section-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .home-body h2 { font-family: 'DM Serif Display', serif; font-size: 1.75rem; font-weight: 400; color: var(--dark); margin-bottom: 1rem; line-height: 1.3; }
+    .ph { background: var(--ph-bg); border: 1.5px dashed var(--ph-border); border-radius: 6px; padding: 1rem 1.25rem; color: #6B89C9; font-size: 0.875rem; font-style: italic; line-height: 1.65; max-width: 68ch; margin-bottom: 1.25rem; }
+    .ph.tall { min-height: 7rem; display: flex; align-items: flex-start; padding-top: 1.1rem; }
+    .page-shell { padding: 3.5rem 4.5rem; max-width: 920px; }
+    .page-head { margin-bottom: 2.75rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .page-head h1 { font-family: 'DM Serif Display', serif; font-size: 2.6rem; font-weight: 400; color: var(--dark); line-height: 1.2; max-width: 600px; margin-top: 0.5rem; }
+    .page-head p { font-size: 1rem; color: var(--muted); max-width: 58ch; line-height: 1.7; margin-top: 0.75rem; }
+    .content-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); margin-bottom: 0.5rem; margin-top: 2rem; }
+    p.body-text { font-size: 1rem; line-height: 1.8; color: var(--text); max-width: 65ch; margin-bottom: 1.1rem; }
+    .timeline { position: relative; padding-left: 2rem; margin-top: 0.5rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 2.5rem; bottom: 2rem; width: 2px; background: var(--border); }
+    .t-event { position: relative; padding: 0 0 3rem 3rem; }
+    .t-event::before { content: ''; position: absolute; left: -5px; top: 1.75rem; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 3px solid var(--bg); outline: 2px solid var(--accent); }
+    .t-year { font-family: 'DM Serif Display', serif; font-size: 3.5rem; font-weight: 400; color: var(--accent); line-height: 1; margin-bottom: 0.4rem; opacity: 0.85; }
+    .t-year.placeholder-year { opacity: 0.25; }
+    .t-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 0.5rem; line-height: 1.4; }
+    .t-title.is-placeholder { color: #93AACA; font-weight: 400; font-style: italic; }
+    .quote-block { margin: 2.25rem 0; max-width: 62ch; position: relative; padding: 1.5rem 2rem 1.25rem; background: var(--accent-dim); }
+    .quote-mark { font-family: 'DM Serif Display', serif; font-size: 4rem; color: var(--accent); line-height: 0.6; display: block; margin-bottom: 1rem; opacity: 0.7; }
+    .quote-text { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 1.15rem; color: var(--dark); line-height: 1.65; margin-bottom: 1rem; }
+    .quote-text.is-placeholder { color: rgba(224,92,26,0.35); }
+    .quote-attrib { font-size: 0.78rem; font-weight: 500; color: var(--muted); border-top: 1px solid rgba(224,92,26,0.2); padding-top: 0.75rem; }
+    .synthesis-lead { font-size: 1.1rem; font-weight: 300; color: var(--muted); max-width: 58ch; line-height: 1.8; margin-bottom: 2rem; }
+    .doc-group { margin-bottom: 2.75rem; }
+    .doc-group-title { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1rem; }
+    .source-entry { position: relative; padding: 0.65rem 0 0.65rem 1.5rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; line-height: 1.6; color: var(--text); max-width: 68ch; }
+    .source-entry::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--border); }
+    .source-entry:hover::before { background: var(--accent); }
+    .source-entry a { color: var(--primary); text-decoration: underline; }
+    .source-entry em { font-style: italic; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     SIDEBAR NAVIGATION
+════════════════════════════════════════ -->
+<nav class="sidebar">
+  <div class="sidebar-top">
+    <div class="sidebar-eyebrow">Historical Case Study</div>
+    <div class="sidebar-site-title">Who Gets Counted</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Main</div>
+    <a class="nav-link active" onclick="showPage('home')"><span class="nav-dot"></span> Home</a>
+    <a class="nav-link" onclick="showPage('timeline')"><span class="nav-dot"></span> Timeline</a>
+    <a class="nav-link" onclick="showPage('event-analysis')"><span class="nav-dot"></span> Event Analysis</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Source Synthesis</div>
+    <a class="nav-link sub" onclick="showPage('synthesis-1')"><span class="nav-dot"></span> Making of a Statistic</a>
+    <a class="nav-link sub" onclick="showPage('synthesis-2')"><span class="nav-dot"></span> Race, Age, and Geography</a>
+    <a class="nav-link sub" onclick="showPage('synthesis-3')"><span class="nav-dot"></span> The Gendered Burden</a>
+  </div>
+
+  <div class="nav-section">
+    <a class="nav-link" onclick="showPage('documentation')"><span class="nav-dot"></span> Documentation</a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════
+     MAIN CONTENT AREA
+════════════════════════════════════════ -->
+<main class="main">
+
+
+  <!-- ════════════════════════════════════
+       PAGE 1: HOME
+  ════════════════════════════════════ -->
+  <section id="home" class="page active">
+
+    <div class="home-hero">
+      <div class="hero-tag">United States &nbsp;·&nbsp; 1970–2020</div>
+
+      <h1>Who Gets Counted: Chlamydia in the United States, 1970–2020</h1>
+
+      <p class="hero-subtitle">How chlamydia went from something the United States did not track at all to the most-reported disease in the country, and why both the numbers and the fallout landed unevenly across race, age, and income.</p>
+
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <div class="meta-label">Time Period</div>
+          <div class="meta-value">1970–2020</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="meta-label">Geography</div>
+          <div class="meta-value">United States</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="meta-label">Researcher</div>
+          <div class="meta-value">Aarush Yelimeli</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="home-body">
+      <div class="section-label">About This Project</div>
+      <h2>A Fifty-Year Look at Who Gets Tested, Treated, and Counted</h2>
+
+      <p class="body-text">This site follows chlamydia in the United States across fifty years, from a period when the infection was not tracked at all to its place today as the most frequently reported condition in the country. In 1970 there was no national surveillance system for chlamydia; in fact, data collection did not begin until 1984. The infection was not made nationally notifiable until 1995, and it was not reported from all fifty states until 2000. That timing matters, because the rising case numbers over this period are recording two things at the same time. One is a spreading infection. The other is a health system that only slowly started looking for it.</p>
+
+      <p class="body-text">Reported rates are highest among young women, and among Black women in particular, which reflects real differences in infection along with even bigger differences in who gets screened and where. What I set out to figure out is how much of that disparity is disease and how much is the condition of the health system itself.</p>
+
+      <div class="section-label" style="margin-top:2rem;">Key Themes</div>
+      <p class="body-text">Three themes run through this project. The first is who gets counted, and why surveillance data is never neutral. The second is how race, age, and geography shape a person's access to testing and treatment. The third is how stigma and the gendered design of screening programs put most of the work of prevention on young women.</p>
+
+      <div class="section-label" style="margin-top:2rem;">What I Took Away From the Research</div>
+      <p class="body-text">What stood out to me the most was how much these numbers depend on the healthcare system around them. A jump in reported cases does not always mean the infection suddenly became more common; sometimes it just means more people were tested, or a state started reporting for the first time. The gaps between racial and age groups stuck with me too. Chlamydia is obviously a biological infection, but who gets tested and who can afford care are social questions, and they decide what shows up in the data.</p>
+    </div>
+
+  </section>
+  <!-- END HOME PAGE -->
+
+
+  <!-- ════════════════════════════════════
+       PAGE 2: TIMELINE
+  ════════════════════════════════════ -->
+  <section id="timeline" class="page">
+    <div class="page-shell">
+      <div class="page-head">
+        <div class="section-label">Chronology</div>
+        <h1>Timeline</h1>
+        <p>Five moments show how chlamydia moved from an untracked infection to the most-reported condition in the United States, and how each expansion of screening revealed a new inequality.</p>
+      </div>
+
+      <div class="timeline">
+
+        <div class="t-event">
+          <div class="t-year">1988</div>
+          <div class="t-title">The Region X Infertility Prevention Project Begins</div>
+          <p class="body-text">The first large, organized chlamydia screening program launched in family planning clinics across Alaska, Idaho, Oregon, and Washington. The clinics tested young women and treated the ones who came back positive. This is the reason disparities in chlamydia became visible at all, because the program produced the first solid body of data on who was actually infected. From 1988 through the mid-1990s, positivity among clients aged 15 to 24 fell by more than 60%. Nevertheless, the racial gap widened instead of closing; in 1988 positivity among Black clients was 62% higher than among white clients, 16.4% against 10.1%, and by 1996 that difference had grown to 100%.</p>
+        </div>
+
+        <div class="t-event">
+          <div class="t-year">1995</div>
+          <div class="t-title">Chlamydia Becomes Nationally Notifiable</div>
+          <p class="body-text">After national data collection began in 1984, chlamydia was formally made a nationally notifiable condition in 1995, which required cases to be reported to federal surveillance. For the first time the country had a way of knowing how common the infection actually was, and in that very first year chlamydia was already the most commonly reported infectious disease in the United States.</p>
+        </div>
+
+        <div class="t-event">
+          <div class="t-year">2000</div>
+          <div class="t-title">All Fifty States Finally Reporting</div>
+          <p class="body-text">Chlamydia was not reported from all fifty states and the District of Columbia until 2000, which was five years after it became notifiable and thirty years into this study's window. The CDC received more than 700,000 reports that year. Much of the apparent increase in cases through the 1990s is really just states joining the surveillance system rather than the infection spreading that quickly.</p>
+        </div>
+
+        <div class="t-event">
+          <div class="t-year">2001</div>
+          <div class="t-title">The USPSTF Recommends Screening for Women</div>
+          <p class="body-text">The U.S. Preventive Services Task Force recommended that clinicians screen all sexually active women at increased risk for chlamydia, then updated that guidance in 2007 to cover every sexually active nonpregnant woman aged 24 or younger. Men were largely left out; the Task Force's own evidence review admitted there were large gaps in what was known about screening them, and it could not say whether screening men helped or not. A national prevention strategy aimed almost entirely at young women is a gender story as much as a clinical one, because untested men stay a reservoir of infection while women carry the testing, the diagnosis, and the stigma.</p>
+        </div>
+
+        <div class="t-event">
+          <div class="t-year">2020</div>
+          <div class="t-title">COVID-19 and the Cases That Disappeared</div>
+          <p class="body-text">During the week of April 8, 2020, reported chlamydia cases fell to roughly half of what they had been in the same week of 2019, and cumulative totals for the year finished 14.0% below 2019. Infections did not drop by 14% in a single year. The testing did, as clinics closed and people stayed away from care. This is the cleanest evidence in the whole timeline that these numbers measure health system access as much as they measure disease.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- END TIMELINE PAGE -->
+
+
+  <!-- ════════════════════════════════════
+       PAGE 3: EVENT ANALYSIS
+  ════════════════════════════════════ -->
+  <section id="event-analysis" class="page">
+    <div class="page-shell">
+      <div class="page-head">
+        <div class="section-label">Event Analysis</div>
+        <h1>2020: COVID-19 and the Cases That Disappeared</h1>
+        <p>I chose 2020 because it is the year the gap between reported cases and actual infections became impossible to ignore, and because it exposed the assumption sitting underneath fifty years of surveillance data.</p>
+      </div>
+
+      <div class="content-label">Background</div>
+      <p class="body-text">By early 2020, chlamydia was the most frequently reported condition in the United States, backed by three decades of data coming out of family planning clinics, STI clinics, student health centers, and primary care offices. That data depended almost entirely on people physically showing up for care, and a lot of it was opportunistic testing done during visits that had been scheduled for something else entirely. So when the pandemic closed clinics and redirected public health staff to COVID work, the testing itself collapsed.</p>
+
+      <div class="content-label">Significance</div>
+      <p class="body-text">Reported cases dropped to about half of the previous year's level within weeks, and the cumulative total for 2020 finished 14.0% below 2019. There is honestly no way that many infections actually disappeared in a few months. What fell was detection. That single year showed that the national chlamydia case count is really a measure of testing capacity layered on top of disease, and the people who lost access first were the same people who unfortunately had always depended most on public clinics for their care.</p>
+
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text">case rates are heavily influenced by screening coverage</div>
+        <div class="quote-attrib">— According to CDC, <em>Sexually Transmitted Disease Surveillance 2020</em>, 2022</div>
+      </div>
+
+      <div class="content-label">Societal Implications</div>
+      <p class="body-text">The people who relied most on publicly funded clinics, meaning younger, lower-income, and disproportionately Black and Latina patients, lost testing access first and lost the most of it, while patients with private insurance and telehealth options held onto more of theirs. An undetected infection is an untreated infection, and untreated chlamydia carries real consequences including pelvic inflammatory disease, ectopic pregnancy, and infertility. In my personal opinion, this is the part that should worry people the most. A drop in reported cases in 2020 may turn into a rise in reproductive harm years later, concentrated in exactly the communities that were already being served the worst.</p>
+
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text">an already strained public health infrastructure</div>
+        <div class="quote-attrib">— Jonathan Mermin, CDC, quoted in the 2020 STD Surveillance Report press release, 2022</div>
+      </div>
+
+      <div class="content-label">Conclusion</div>
+      <p class="body-text">What 2020 compressed into a single year is the same pattern this site traces across fifty. What the country knows about chlamydia has always depended on who we chose to test. So the curve from 1970 to 2020 is the history of an infection and the history of a health system's disparities at the same time, and it is hard to read one without reading the other.</p>
+    </div>
+  </section>
+  <!-- END EVENT ANALYSIS PAGE -->
+
+
+  <!-- ════════════════════════════════════
+       PAGE 4: SOURCE SYNTHESIS — TOPIC 1
+  ════════════════════════════════════ -->
+  <section id="synthesis-1" class="page">
+    <div class="page-shell">
+      <div class="page-head">
+        <div class="section-label">Source Synthesis · Topic 1</div>
+        <h1>Who Gets Counted: Surveillance and the Making of a Statistic</h1>
+        <p class="synthesis-lead">Chlamydia case rates get read as a measure of infection, but they are just as much a measure of screening, and once I understood that it changed how I read every disparity in this data.</p>
+      </div>
+
+      <p class="body-text">The infrastructure came first. National data collection started in 1984, notifiability followed in 1995, and complete state reporting did not arrive until 2000. Reported rates climbed steeply across that whole stretch, and some of that climb is not infection at all; it is a surveillance system being built in real time. Hoover and her team are directly useful here, because their study pulls from multiple data sources for the specific reason that no single one gives a clean picture of screening among young women. Even their best estimate was that fewer than half of sexually active females aged 15 to 21 had been tested in the past year, and at ordinary doctor's office visits a chlamydia test happened only 4.3% of the time.</p>
+
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text">fewer than half of sexually active females aged 15–21 years screened annually</div>
+        <div class="quote-attrib">— According to Hoover et al., <em>MMWR Supplements</em>, 2014</div>
+      </div>
+
+      <p class="body-text">Now the consequence. If rates track screening, then groups screened in publicly funded settings like family planning clinics, STI clinics, and Medicaid are going to appear more often in the data than groups who are never tested. This does not mean the disparity is fake; prevalence studies find it too. But it does mean that the size of the gap in reported cases and the size of the gap in actual infection are not the same number, and a careful reader has to hold both of those ideas at once. The CDC has said as much itself, admitting that reported case counts come in under the real number of infections. Nevertheless, those reported counts are what end up in news coverage and in public arguments about which communities have a problem.</p>
+
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text">the number of STD cases reported to CDC undercounts the actual number of infections</div>
+        <div class="quote-attrib">— According to CDC, National Center for Health Statistics, 2023</div>
+      </div>
+    </div>
+  </section>
+  <!-- END SYNTHESIS 1 PAGE -->
+
+
+  <!-- ════════════════════════════════════
+       PAGE 5: SOURCE SYNTHESIS — TOPIC 2
+  ════════════════════════════════════ -->
+  <section id="synthesis-2" class="page">
+    <div class="page-shell">
+      <div class="page-head">
+        <div class="section-label">Source Synthesis · Topic 2</div>
+        <h1>Race, Age, and the Geography of Care</h1>
+        <p class="synthesis-lead">The burden of chlamydia has never been evenly distributed, and the explanations my sources give for that unevenness say as much about American healthcare as they do about the infection.</p>
+      </div>
+
+      <p class="body-text">Chambers and her co-authors do the most work for me here. Studying women in King County, Washington, they estimated that among those born between 1980 and 1984, the lifetime risk of a chlamydia diagnosis was 14.0% for non-Hispanic white women, 32.6% for Hispanic women, and 64.9% for non-Hispanic Black women. Because it is a lifetime-risk study with adverse reproductive outcomes attached, it lets me connect a diagnosis rate to an actual consequence instead of leaving it as an abstract percentage. Age compounds it. In the CDC screening data, only about a quarter of 15- to 17-year-olds reported a test in the past year, compared to half of 20- to 21-year-olds.</p>
+
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text">a risk almost 5 times that in non-Hispanic whites</div>
+        <div class="quote-attrib">— According to Chambers et al., <em>Clinical Infectious Diseases</em>, 2018</div>
+      </div>
+
+      <p class="body-text">Pair that with what happened in Region X. The screening program worked; positivity among young clients fell by more than 60% from 1988 through the mid-1990s. Even so, the racial gap widened rather than closing, going from 62% in 1988 to 100% by 1996. Fine and his co-authors then adjusted for individual risk factors and for neighborhood-level socioeconomic measures, and the racial differences still did not go away. A program that succeeded overall and still left a gap that big is a much more interesting problem than a program that simply failed.</p>
+
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text">Racial/ethnic differences in chlamydia persisted over time</div>
+        <div class="quote-attrib">— According to Fine et al., <em>Public Health Reports</em>, 2012</div>
+      </div>
+
+      <p class="body-text">So what actually explains it? The causes my sources point toward are structural ones: how close a clinic is to where somebody lives, whether they have insurance, whether they can get transportation to an appointment, how dense sexual networks are in segregated communities, and how intensely different groups get screened in the first place. I am deliberately avoiding explanations that come down to individual behavior, because the sources do not support that reading, and honestly the argument is stronger without it. The King County data even shows the gap narrowing over time; among non-Hispanic Black women, risk of diagnosis by age 24 fell from 57.3% in the 1980–1984 birth cohort to 38.6% in the 1990–1994 cohort. Structures can change, which means they were structures and not fixed facts about people.</p>
+    </div>
+  </section>
+  <!-- END SYNTHESIS 2 PAGE -->
+
+
+  <!-- ════════════════════════════════════
+       PAGE 6: SOURCE SYNTHESIS — TOPIC 3
+  ════════════════════════════════════ -->
+  <section id="synthesis-3" class="page">
+    <div class="page-shell">
+      <div class="page-head">
+        <div class="section-label">Source Synthesis · Topic 3</div>
+        <h1>Stigma, Sex Education, and the Gendered Burden of Prevention</h1>
+        <p class="synthesis-lead">American chlamydia prevention was built almost entirely around testing young women, and that design choice decided who carries the stigma and who gets to stay invisible.</p>
+      </div>
+
+      <p class="body-text">Start with the USPSTF. In 2001 it recommended screening sexually active women at increased risk, and by 2007 it had extended that to all sexually active nonpregnant women aged 24 or younger. For men it could not reach a conclusion at all, and its own evidence update said plainly that the research on screening men was full of holes. Follow what comes out of that. Women get tested at reproductive health visits, men largely do not get tested anywhere, so women show up in the case data and men do not. The disparity in the numbers is partly a disparity in who somebody decided to look at.</p>
+
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text">large gaps in the evidence about screening men</div>
+        <div class="quote-attrib">— According to Meyers et al., evidence update for the USPSTF, <em>Annals of Internal Medicine</em>, 2007</div>
+      </div>
+
+      <p class="body-text">Layer stigma and sex education on top of that. Most chlamydia infections produce no symptoms, so an infection only gets found if somebody goes looking for it, which means a young person has to bring up STI testing with a provider on purpose. Abstinence-focused sex education makes that conversation harder, since a student who was never taught that asymptomatic infections exist has no reason to ask for a test. Meanwhile the burden of asking, testing, and being diagnosed sits with young women, which is also where the shame lands. Where exactly is the line between a prevention program and a program that just decided one group was easier to monitor?</p>
+
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text">a fraction of America's STD epidemic</div>
+        <div class="quote-attrib">— According to CDC, quoted in Brian Pascus, <em>CBS News</em>, 2019</div>
+      </div>
+
+      <p class="body-text">This is where an individual voice does something a case rate cannot. News coverage of record-high STD numbers rarely explains that better screening is part of why the records keep falling, and it almost never mentions that the screening was aimed at one sex. Unfortunately, that leaves the public with a story about behavior when a lot of what actually changed was who the health system chose to test.</p>
+    </div>
+  </section>
+  <!-- END SYNTHESIS 3 PAGE -->
+
+
+  <!-- ════════════════════════════════════
+       PAGE 7: DOCUMENTATION
+  ════════════════════════════════════ -->
+  <section id="documentation" class="page">
+    <div class="page-shell">
+      <div class="page-head">
+        <div class="section-label">References</div>
+        <h1>Documentation</h1>
+        <p>All sources used in this project.</p>
+      </div>
+
+      <div class="doc-group">
+        <div class="doc-group-title">Primary Source</div>
+        <div class="source-entry"><a href="https://www.cdc.gov/mmwr/preview/mmwrhtml/00044106.htm" target="_blank">https://www.cdc.gov/mmwr/preview/mmwrhtml/00044106.htm</a></div>
+        <div class="source-entry"><a href="https://stacks.cdc.gov/view/cdc/12292" target="_blank">https://stacks.cdc.gov/view/cdc/12292</a></div>
+        <div class="source-entry"><a href="https://stacks.cdc.gov/view/cdc/125947/cdc_125947_DS1.pdf" target="_blank">https://stacks.cdc.gov/view/cdc/125947/cdc_125947_DS1.pdf</a></div>
+        <div class="source-entry"><a href="https://www.cdc.gov/nchhstp/newsroom/releases/2022/2020-std-surveillance-report-press-release.html" target="_blank">https://www.cdc.gov/nchhstp/newsroom/releases/2022/2020-std-surveillance-report-press-release.html</a></div>
+        <div class="source-entry"><a href="https://www.cdc.gov/nchs/hus/sources-definitions/std.htm" target="_blank">https://www.cdc.gov/nchs/hus/sources-definitions/std.htm</a></div>
+        <div class="source-entry"><a href="https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/chlamydial-infection-screening-2007" target="_blank">https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/chlamydial-infection-screening-2007</a></div>
+      </div>
+
+      <div class="doc-group">
+        <div class="doc-group-title">Academic Secondary Sources</div>
+        <div class="source-entry"><a href="https://academic.oup.com/cid/article/67/4/593/4840254" target="_blank">https://academic.oup.com/cid/article/67/4/593/4840254</a></div>
+        <div class="source-entry"><a href="https://www.cdc.gov/mmwr/preview/mmwrhtml/su6302a12.htm" target="_blank">https://www.cdc.gov/mmwr/preview/mmwrhtml/su6302a12.htm</a></div>
+        <div class="source-entry"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3234396" target="_blank">https://pmc.ncbi.nlm.nih.gov/articles/PMC3234396</a></div>
+        <div class="source-entry"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8459909/" target="_blank">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8459909/</a></div>
+        <div class="source-entry"><a href="https://doi.org/10.7326/0003-4819-147-2-200707170-00173" target="_blank">https://doi.org/10.7326/0003-4819-147-2-200707170-00173</a></div>
+      </div>
+
+      <div class="doc-group">
+        <div class="doc-group-title">Popular Secondary Sources</div>
+        <div class="source-entry"><a href="https://www.cbsnews.com/news/stds-at-all-time-high-cdc-warns-syphilis-gonorrhea-chlamydia-sexually-transmitted-disease-cases-reach-record/" target="_blank">https://www.cbsnews.com/news/stds-at-all-time-high-cdc-warns-syphilis-gonorrhea-chlamydia-sexually-transmitted-disease-cases-reach-record/</a></div>
+        <div class="source-entry"><a href="https://www.osmosis.org/learn/Chlamydia_trachomatis_infection:_Clinical_sciences" target="_blank">https://www.osmosis.org/learn/Chlamydia_trachomatis_infection:_Clinical_sciences</a></div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END DOCUMENTATION PAGE -->
+
+
+</main>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     DO NOT EDIT THE SCRIPT BELOW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById(id);
+    if (target) target.classList.add('active');
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+      const fn = link.getAttribute('onclick') || '';
+      if (fn.includes("'" + id + "'")) link.classList.add('active');
+    });
+    window.scrollTo(0, 0);
+  }
+</script>
+</body>
+</html>
