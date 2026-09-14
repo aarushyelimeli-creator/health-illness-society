@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ✏️ EDIT: Change this to your website title (shows in browser tab) -->
+  <title>Historical Case Study</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <style>
+    /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+       DO NOT EDIT THE CSS BELOW
+       (unless you want to change colors/fonts)
+    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+    :root {
+      --dark:        #080C17;
+      --navy:        #0F1524;
+      --primary:     #1B3A6B;
+      --accent:      #E05C1A;
+      --accent-dim:  #FEF3EC;
+      --bg:          #ECEEF5;
+      --white:       #FFFFFF;
+      --text:        #1B2535;
+      --muted:       #5C6B80;
+      --border:      #D0D8E8;
+      --ph-bg:       #EDF1FD;
+      --ph-border:   #BBCAEF;
+      --sidebar-w:   260px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      line-height: 1;
+    }
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--navy);
+      position: fixed;
+      top: 0; left: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    .sidebar-top {
+      padding: 2rem 1.75rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-eyebrow {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .sidebar-site-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.4;
+    }
+    .sidebar-site-title.placeholder-title {
+      color: rgba(255,255,255,0.3);
+      font-style: italic;
+    }
+    .nav-section { padding: 1.25rem 0 0.5rem; }
+    .nav-section-label {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      padding: 0 1.75rem;
+      margin-bottom: 0.25rem;
+    }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.6rem 1.75rem;
+      color: rgba(255,255,255,0.55);
+      font-size: 0.875rem;
+      font-weight: 400;
+      cursor: pointer;
+      text-decoration: none;
+      transition: color 0.15s, background 0.15s;
+      border-left: 3px solid transparent;
+    }
+    .nav-link:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.05); }
+    .nav-link.active { color: #fff; background: rgba(255,255,255,0.07); border-left-color: var(--accent); font-weight: 500; }
+    .nav-link.sub { padding-left: 2.5rem; font-size: 0.82rem; }
+    .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.2); flex-shrink: 0; transition: background 0.15s; }
+    .nav-link.active .nav-dot { background: var(--accent); }
+    .main { margin-left: var(--sidebar-w); flex: 1; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .home-hero { background: var(--dark); padding: 5rem 4.5rem 4rem; position: relative; overflow: hidden; }
+    .home-hero::before { content: ''; position: absolute; top: -160px; right: -160px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(224,92,26,0.12) 0%, transparent 70%); pointer-events: none; }
+    .home-hero::after { content: ''; position: absolute; bottom: -80px; left: 200px; width: 350px; height: 350px; border-radius: 50%; background: radial-gradient(circle, rgba(27,58,107,0.4) 0%, transparent 70%); pointer-events: none; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(224,92,26,0.15); border: 1px solid rgba(224,92,26,0.3); color: #F4955A; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; padding: 0.3rem 0.75rem; border-radius: 20px; margin-bottom: 1.5rem; }
+    .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #F4955A; }
+    .home-hero h1 { font-family: 'DM Serif Display', serif; font-size: 3.6rem; font-weight: 400; color: #fff; line-height: 1.15; max-width: 700px; margin-bottom: 1.5rem; position: relative; }
+    .home-hero h1.is-placeholder { color: rgba(255,255,255,0.2); font-style: italic; }
+    .hero-subtitle { font-size: 1.05rem; font-weight: 300; color: rgba(255,255,255,0.6); max-width: 54ch; line-height: 1.75; margin-bottom: 2.5rem; position: relative; }
+    .hero-meta { display: flex; gap: 0; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; position: relative; }
+    .hero-meta-item { padding-right: 2.5rem; border-right: 1px solid rgba(255,255,255,0.08); margin-right: 2.5rem; }
+    .hero-meta-item:last-child { border-right: none; }
+    .hero-meta-item .meta-label { font-size: 0.65rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.3); margin-bottom: 0.35rem; }
+    .hero-meta-item .meta-value { font-size: 0.95rem; font-weight: 500; color: rgba(255,255,255,0.8); }
+    .home-body { padding: 3.5rem 4.5rem; max-width: 900px; }
+    .section-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+    .home-body h2 { font-family: 'DM Serif Display', serif; font-size: 1.75rem; font-weight: 400; color: var(--dark); margin-bottom: 1rem; line-height: 1.3; }
+    .ph { background: var(--ph-bg); border: 1.5px dashed var(--ph-border); border-radius: 6px; padding: 1rem 1.25rem; color: #6B89C9; font-size: 0.875rem; font-style: italic; line-height: 1.65; max-width: 68ch; margin-bottom: 1.25rem; }
+    .ph.tall { min-height: 7rem; display: flex; align-items: flex-start; padding-top: 1.1rem; }
+    .page-shell { padding: 3.5rem 4.5rem; max-width: 920px; }
+    .page-head { margin-bottom: 2.75rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+    .page-head h1 { font-family: 'DM Serif Display', serif; font-size: 2.6rem; font-weight: 400; color: var(--dark); line-height: 1.2; max-width: 600px; margin-top: 0.5rem; }
+    .page-head p { font-size: 1rem; color: var(--muted); max-width: 58ch; line-height: 1.7; margin-top: 0.75rem; }
+    .content-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); margin-bottom: 0.5rem; margin-top: 2rem; }
+    p.body-text { font-size: 1rem; line-height: 1.8; color: var(--text); max-width: 65ch; margin-bottom: 1.1rem; }
+    .timeline { position: relative; padding-left: 2rem; margin-top: 0.5rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 2.5rem; bottom: 2rem; width: 2px; background: var(--border); }
+    .t-event { position: relative; padding: 0 0 3rem 3rem; }
+    .t-event::before { content: ''; position: absolute; left: -5px; top: 1.75rem; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 3px solid var(--bg); outline: 2px solid var(--accent); }
+    .t-year { font-family: 'DM Serif Display', serif; font-size: 3.5rem; font-weight: 400; color: var(--accent); line-height: 1; margin-bottom: 0.4rem; opacity: 0.85; }
+    .t-year.placeholder-year { opacity: 0.25; }
+    .t-title { font-size: 1.05rem; font-weight: 600; color: var(--dark); margin-bottom: 0.5rem; line-height: 1.4; }
+    .t-title.is-placeholder { color: #93AACA; font-weight: 400; font-style: italic; }
+    .quote-block { margin: 2.25rem 0; max-width: 62ch; position: relative; padding: 1.5rem 2rem 1.25rem; background: var(--accent-dim); }
+    .quote-mark { font-family: 'DM Serif Display', serif; font-size: 4rem; color: var(--accent); line-height: 0.6; display: block; margin-bottom: 1rem; opacity: 0.7; }
+    .quote-text { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 1.15rem; color: var(--dark); line-height: 1.65; margin-bottom: 1rem; }
+    .quote-text.is-placeholder { color: rgba(224,92,26,0.35); }
+    .quote-attrib { font-size: 0.78rem; font-weight: 500; color: var(--muted); border-top: 1px solid rgba(224,92,26,0.2); padding-top: 0.75rem; }
+    .synthesis-lead { font-size: 1.1rem; font-weight: 300; color: var(--muted); max-width: 58ch; line-height: 1.8; margin-bottom: 2rem; }
+    .doc-group { margin-bottom: 2.75rem; }
+    .doc-group-title { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.09em; color: var(--muted); border-bottom: 2px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1rem; }
+    .source-entry { position: relative; padding: 0.65rem 0 0.65rem 1.5rem; border-bottom: 1px solid var(--border); font-size: 0.9rem; line-height: 1.6; color: var(--text); max-width: 68ch; }
+    .source-entry::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--border); }
+    .source-entry:hover::before { background: var(--accent); }
+    .source-entry a { color: var(--primary); text-decoration: underline; }
+    .source-entry em { font-style: italic; }
+  </style>
+</head>
+<body>
+
+<!--
+╔══════════════════════════════════════════════════════════════╗
+║              HOW TO EDIT THIS FILE                           ║
+╠══════════════════════════════════════════════════════════════╣
+║  1. Open this file in a text editor (Notepad, VS Code, etc.) ║
+║  2. Find the ✏️ EDIT comments — they mark every spot         ║
+║     where you need to paste your content.                    ║
+║  3. Replace the placeholder text between the HTML tags.      ║
+║  4. When you fill in a blue box (class="ph" or "ph tall"),   ║
+║     change it to:  class="body-text"  so it looks like       ║
+║     normal text instead of the dashed blue box.              ║
+║  5. When you fill in a blue heading or year number,          ║
+║     delete the words:  is-placeholder  or  placeholder-year  ║
+║     from its class attribute.                                ║
+║  6. When you fill in a quote, delete:  is-placeholder        ║
+║     from the quote-text class attribute.                     ║
+║  7. Save and open in Chrome or Safari to preview.            ║
+╚══════════════════════════════════════════════════════════════╝
+-->
+
+
+<!-- ══════════════════════════════════════
+     SIDEBAR NAVIGATION
+     Only edit the site title and the 3
+     synthesis topic names below.
+════════════════════════════════════════ -->
+<nav class="sidebar">
+  <div class="sidebar-top">
+    <div class="sidebar-eyebrow">Historical Case Study</div>
+
+    <!-- ✏️ EDIT: Your website title in the sidebar (short version is fine) -->
+    <div class="sidebar-site-title placeholder-title">[Your Website Title]</div>
+    <!-- When you fill this in, delete the word "placeholder-title" from class above -->
+
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Main</div>
+    <a class="nav-link active" onclick="showPage('home')"><span class="nav-dot"></span> Home</a>
+    <a class="nav-link" onclick="showPage('timeline')"><span class="nav-dot"></span> Timeline</a>
+    <a class="nav-link" onclick="showPage('event-analysis')"><span class="nav-dot"></span> Event Analysis</a>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-section-label">Source Synthesis</div>
+
+    <!-- ✏️ EDIT: Replace the 3 topic names below with your actual synthesis topic names -->
+    <a class="nav-link sub" onclick="showPage('synthesis-1')"><span class="nav-dot"></span> [Topic 1 Name]</a>
+    <a class="nav-link sub" onclick="showPage('synthesis-2')"><span class="nav-dot"></span> [Topic 2 Name]</a>
+    <a class="nav-link sub" onclick="showPage('synthesis-3')"><span class="nav-dot"></span> [Topic 3 Name]</a>
+
+  </div>
+
+  <div class="nav-section">
+    <a class="nav-link" onclick="showPage('documentation')"><span class="nav-dot"></span> Documentation</a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════
+     MAIN CONTENT AREA
+════════════════════════════════════════ -->
+<main class="main">
+
+
+  <!-- ════════════════════════════════════
+       PAGE 1: HOME
+  ════════════════════════════════════ -->
+  <section id="home" class="page active">
+
+    <!-- HERO BANNER (dark section at the top) -->
+    <div class="home-hero">
+
+      <!-- ✏️ EDIT: The small pill tag — put your time period and geography here -->
+      <div class="hero-tag">United States &nbsp;·&nbsp; 1970–2020</div>
+
+      <!-- ✏️ EDIT: Your main website title (the big white heading)
+           When you fill this in, delete the words "is-placeholder" from the class below -->
+      <h1 class="is-placeholder">[Your Website Title Goes Here]</h1>
+
+      <!-- ✏️ EDIT: A 1–2 sentence subtitle describing your topic and angle.
+           Example: "How chlamydia became the most reported STI in the U.S.,
+           and why the burden fell unequally across communities." -->
+      <p class="hero-subtitle">[Paste your 1–2 sentence subtitle here]</p>
+
+      <!-- ✏️ EDIT: The three stats/labels at the bottom of the hero -->
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <div class="meta-label">Time Period</div>
+          <div class="meta-value">1970–2020</div>   <!-- ✏️ Change years if needed -->
+        </div>
+        <div class="hero-meta-item">
+          <div class="meta-label">Geography</div>
+          <div class="meta-value">United States</div>  <!-- ✏️ Change if needed -->
+        </div>
+        <div class="hero-meta-item">
+          <div class="meta-label">Researcher</div>
+          <div class="meta-value">[Your Name]</div>  <!-- ✏️ Put your name here -->
+        </div>
+      </div>
+
+    </div>
+    <!-- END HERO BANNER -->
+
+    <!-- HOME BODY TEXT -->
+    <div class="home-body">
+
+      <!-- ✏️ EDIT: A short heading summarizing your project (below the hero) -->
+      <div class="section-label">About This Project</div>
+      <h2>[Short heading summarizing your project — e.g., "A 50-Year Look at Inequality in Sexual Health"]</h2>
+
+      <!-- ✏️ EDIT: Your intro paragraph (3–5 sentences).
+           Explain your trend, why it matters sociologically (race, gender, class,
+           healthcare access), and what you set out to find.
+           → When done, change class="ph tall" to class="body-text" -->
+      <div class="ph tall">[Paste your intro paragraph here — 3–5 sentences. Explain your topic, its sociological significance, and what you set out to find.]</div>
+
+      <!-- ✏️ EDIT: Brief list of the themes your synthesis pages cover (optional).
+           → When done, change class="ph" to class="body-text" -->
+      <div class="section-label" style="margin-top:2rem;">Key Themes</div>
+      <div class="ph">[Optional: briefly name the 2–3 themes your synthesis pages will explore, so readers know what to expect. Delete this section if you don't need it.]</div>
+
+    </div>
+
+  </section>
+  <!-- END HOME PAGE -->
+
+
+  <!-- ════════════════════════════════════
+       PAGE 2: TIMELINE
+       Fill in all 5 events below.
+       For each event:
+         1. Replace [Year] with the actual year
+         2. Replace [Event Title] with your event name
+         3. Replace the ph div text with your 1–2 sentence description
+         4. Delete "placeholder-year" from the year's class
+         5. Delete "is-placeholder" from the title's class
+         6. Change class="ph" to class="body-text" on the description
+  ════════════════════════════════════ -->
+  <section id="timeline" class="page">
+    <div class="page-shell">
+      <div class="page-head">
+        <div class="section-label">Chronology</div>
+        <h1>Timeline</h1>
+
+        <!-- ✏️ EDIT: One sentence intro for the timeline page -->
+        <p>[One sentence explaining what this timeline covers — e.g., "Five key moments trace how chlamydia moved from an untracked infection to the most-reported STI in the United States."]</p>
+
+      </div>
+
+      <div class="timeline">
+
+        <!-- ✏️ EDIT: TIMELINE EVENT 1 -->
+        <div class="t-event">
+          <div class="t-year placeholder-year">[Year]</div>  <!-- Delete "placeholder-year" when filled -->
+          <div class="t-title is-placeholder">[Event Title]</div>  <!-- Delete "is-placeholder" when filled -->
+          <div class="ph">[1–2 sentence description of this event and why it matters to your topic.]</div>  <!-- Change class to "body-text" when filled -->
+        </div>
+
+        <!-- ✏️ EDIT: TIMELINE EVENT 2 -->
+        <div class="t-event">
+          <div class="t-year placeholder-year">[Year]</div>
+          <div class="t-title is-placeholder">[Event Title]</div>
+          <div class="ph">[1–2 sentence description of this event and why it matters to your topic.]</div>
+        </div>
+
+        <!-- ✏️ EDIT: TIMELINE EVENT 3 -->
+        <div class="t-event">
+          <div class="t-year placeholder-year">[Year]</div>
+          <div class="t-title is-placeholder">[Event Title]</div>
+          <div class="ph">[1–2 sentence description of this event and why it matters to your topic.]</div>
+        </div>
+
+        <!-- ✏️ EDIT: TIMELINE EVENT 4 -->
+        <div class="t-event">
+          <div class="t-year placeholder-year">[Year]</div>
+          <div class="t-title is-placeholder">[Event Title]</div>
+          <div class="ph">[1–2 sentence description of this event and why it matters to your topic.]</div>
+        </div>
+
+        <!-- ✏️ EDIT: TIMELINE EVENT 5 -->
+        <div class="t-event">
+          <div class="t-year placeholder-year">[Year]</div>
+          <div class="t-title is-placeholder">[Event Title]</div>
+          <div class="ph">[1–2 sentence description of this event and why it matters to your topic.]</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- END TIMELINE PAGE -->
+
+
+  <!-- ════════════════════════════════════
+       PAGE 3: EVENT ANALYSIS
+       For quotes: replace text inside quote-text div,
+       delete "is-placeholder" from its class,
+       and fill in the attribution line.
+  ════════════════════════════════════ -->
+  <section id="event-analysis" class="page">
+    <div class="page-shell">
+      <div class="page-head">
+        <div class="section-label">Event Analysis</div>
+
+        <!-- ✏️ EDIT: The title of the timeline event you are analyzing -->
+        <h1>[Event Title — Pick one event from your timeline]</h1>
+
+        <!-- ✏️ EDIT: One sentence explaining which event you chose and why it's the most significant -->
+        <p>[One sentence — why did you pick this event? What makes it the most important on your timeline?]</p>
+
+      </div>
+
+      <!-- ✏️ EDIT: Background paragraph (2–3 sentences)
+           What was happening socially, politically, or medically at this time?
+           → Change class="ph tall" to class="body-text" when done -->
+      <div class="content-label">Background</div>
+      <div class="ph tall">[2–3 sentences of context: what was happening socially, politically, or medically at this time that set the stage for this event?]</div>
+
+      <!-- ✏️ EDIT: Significance paragraph (3–4 sentences)
+           What did this event change? Who was affected and how?
+           → Change class="ph tall" to class="body-text" when done -->
+      <div class="content-label">Significance</div>
+      <div class="ph tall">[3–4 sentences: What did this event change? Who was affected and how? What does it reveal about how society understood this health issue at the time?]</div>
+
+      <!-- ✏️ EDIT: QUOTE 1 — Fill in your first quotation (under 15 words) and its source -->
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text is-placeholder">[Paste your first quotation here — keep it under 15 words]</div>  <!-- Delete "is-placeholder" when filled -->
+        <div class="quote-attrib">— [Author or Source Name], [Year]</div>
+      </div>
+
+      <!-- ✏️ EDIT: Societal Implications paragraph (3–4 sentences)
+           How does this connect to race, gender, class, or healthcare access?
+           → Change class="ph tall" to class="body-text" when done -->
+      <div class="content-label">Societal Implications</div>
+      <div class="ph tall">[3–4 sentences: How does this event connect to issues of race, gender, class, healthcare access, or stigma around STIs?]</div>
+
+      <!-- ✏️ EDIT: QUOTE 2 — Fill in your second quotation (under 15 words) and its source -->
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text is-placeholder">[Paste your second quotation here — keep it under 15 words]</div>  <!-- Delete "is-placeholder" when filled -->
+        <div class="quote-attrib">— [Author or Source Name], [Year]</div>
+      </div>
+
+      <!-- ✏️ EDIT: Conclusion paragraph (2–3 sentences)
+           How does this event tie into the broader trend across 1970–2020?
+           → Change class="ph tall" to class="body-text" when done -->
+      <div class="content-label">Conclusion</div>
+      <div class="ph tall">[2–3 sentences: How does this event connect to the broader trend you are studying? What does it mean in the larger story of your topic?]</div>
+
+    </div>
+  </section>
+  <!-- END EVENT ANALYSIS PAGE -->
+
+
+  <!-- ════════════════════════════════════
+       PAGE 4: SOURCE SYNTHESIS — TOPIC 1
+       Synthesize across sources (don't
+       summarize one source at a time).
+  ════════════════════════════════════ -->
+  <section id="synthesis-1" class="page">
+    <div class="page-shell">
+      <div class="page-head">
+        <div class="section-label">Source Synthesis · Topic 1</div>
+
+        <!-- ✏️ EDIT: Your first synthesis topic name (the big heading) -->
+        <h1>[Topic 1 Name — e.g., "Racial and Gender Disparities"]</h1>
+
+        <!-- ✏️ EDIT: One sentence introducing what this page covers -->
+        <p class="synthesis-lead">[One sentence: what is this page about and why does it matter sociologically?]</p>
+
+      </div>
+
+      <!-- ✏️ EDIT: Synthesis Paragraph 1 (4–6 sentences)
+           Synthesize what MULTIPLE sources say together — don't go source by source.
+           → Change class="ph tall" to class="body-text" when done -->
+      <div class="ph tall">[Paragraph 1 — Synthesize what your sources say about this topic together, in your own words. Draw on academic sources, graphs, and your primary source. 4–6 sentences.]</div>
+
+      <!-- ✏️ EDIT: QUOTE 1 for this synthesis topic -->
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text is-placeholder">[Short quotation under 15 words from one of your sources]</div>  <!-- Delete "is-placeholder" when filled -->
+        <div class="quote-attrib">— According to [Author / Source Name], [Year or Publication]</div>
+      </div>
+
+      <!-- ✏️ EDIT: Synthesis Paragraph 2 (4–6 sentences)
+           Go deeper — causes, consequences, social determinants of health.
+           → Change class="ph tall" to class="body-text" when done -->
+      <div class="ph tall">[Paragraph 2 — Go deeper. What do your sources reveal about causes, consequences, or connections to income, education, geography, or healthcare access? 4–6 sentences.]</div>
+
+      <!-- ✏️ EDIT: Optional sub-topic section — delete this whole block if you don't need it -->
+      <div class="content-label" style="margin-top:2rem;">[Optional Sub-topic — delete this whole block if not needed]</div>
+      <div class="ph">[Optional paragraph: add a sub-theme here, e.g., to discuss a graph or chart. Delete if not needed.]</div>
+
+      <!-- ✏️ EDIT: QUOTE 2 for this synthesis topic (optional — delete block if not needed) -->
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text is-placeholder">[Optional second quotation under 15 words from a DIFFERENT source]</div>  <!-- Delete "is-placeholder" when filled -->
+        <div class="quote-attrib">— According to [Author / Source Name], [Year or Publication]</div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END SYNTHESIS 1 PAGE -->
+
+
+  <!-- ════════════════════════════════════
+       PAGE 5: SOURCE SYNTHESIS — TOPIC 2
+  ════════════════════════════════════ -->
+  <section id="synthesis-2" class="page">
+    <div class="page-shell">
+      <div class="page-head">
+        <div class="section-label">Source Synthesis · Topic 2</div>
+
+        <!-- ✏️ EDIT: Your second synthesis topic name -->
+        <h1>[Topic 2 Name — e.g., "Screening Policies and Access to Care"]</h1>
+
+        <!-- ✏️ EDIT: One sentence intro for this page -->
+        <p class="synthesis-lead">[One sentence: what is this page about and why does it matter sociologically?]</p>
+
+      </div>
+
+      <!-- ✏️ EDIT: Synthesis Paragraph 1 (4–6 sentences)
+           → Change class="ph tall" to class="body-text" when done -->
+      <div class="ph tall">[Paragraph 1 — Synthesize what your sources say about this topic in your own words. 4–6 sentences.]</div>
+
+      <!-- ✏️ EDIT: QUOTE 1 for this synthesis topic -->
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text is-placeholder">[Short quotation under 15 words from one of your sources]</div>  <!-- Delete "is-placeholder" when filled -->
+        <div class="quote-attrib">— According to [Author / Source Name], [Year or Publication]</div>
+      </div>
+
+      <!-- ✏️ EDIT: Synthesis Paragraph 2 (4–6 sentences)
+           Include any relevant graph/chart data here.
+           → Change class="ph tall" to class="body-text" when done -->
+      <div class="ph tall">[Paragraph 2 — What patterns or insights emerge when you compare your sources? Include data from graphs or charts if relevant. 4–6 sentences.]</div>
+
+      <!-- ✏️ EDIT: QUOTE 2 for this synthesis topic (optional — delete block if not needed) -->
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text is-placeholder">[Optional second quotation under 15 words from a DIFFERENT source]</div>  <!-- Delete "is-placeholder" when filled -->
+        <div class="quote-attrib">— According to [Author / Source Name], [Year or Publication]</div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END SYNTHESIS 2 PAGE -->
+
+
+  <!-- ════════════════════════════════════
+       PAGE 6: SOURCE SYNTHESIS — TOPIC 3
+  ════════════════════════════════════ -->
+  <section id="synthesis-3" class="page">
+    <div class="page-shell">
+      <div class="page-head">
+        <div class="section-label">Source Synthesis · Topic 3</div>
+
+        <!-- ✏️ EDIT: Your third synthesis topic name -->
+        <h1>[Topic 3 Name — e.g., "Stigma, Sex Ed, and Public Awareness"]</h1>
+
+        <!-- ✏️ EDIT: One sentence intro for this page -->
+        <p class="synthesis-lead">[One sentence: what is this page about and why does it matter sociologically?]</p>
+
+      </div>
+
+      <!-- ✏️ EDIT: Synthesis Paragraph 1 (4–6 sentences)
+           Good place to draw on your primary source, multimedia, or popular article.
+           → Change class="ph tall" to class="body-text" when done -->
+      <div class="ph tall">[Paragraph 1 — What do your sources, taken together, reveal about this topic? Write in your own words. This is a good place to bring in your primary source, popular article, or multimedia resource. 4–6 sentences.]</div>
+
+      <!-- ✏️ EDIT: QUOTE 1 for this synthesis topic -->
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text is-placeholder">[Short quotation under 15 words from one of your sources]</div>  <!-- Delete "is-placeholder" when filled -->
+        <div class="quote-attrib">— According to [Author / Source Name], [Year or Publication]</div>
+      </div>
+
+      <!-- ✏️ EDIT: Synthesis Paragraph 2 (4–6 sentences)
+           → Change class="ph tall" to class="body-text" when done -->
+      <div class="ph tall">[Paragraph 2 — How does your primary source, multimedia resource, or graph add depth to this theme? What connections can you draw to the bigger trends on your site? 4–6 sentences.]</div>
+
+      <!-- ✏️ EDIT: QUOTE 2 for this synthesis topic (optional — delete block if not needed) -->
+      <div class="quote-block">
+        <span class="quote-mark">&ldquo;</span>
+        <div class="quote-text is-placeholder">[Optional second quotation under 15 words from a DIFFERENT source]</div>  <!-- Delete "is-placeholder" when filled -->
+        <div class="quote-attrib">— According to [Author / Source Name], [Year or Publication]</div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END SYNTHESIS 3 PAGE -->
+
+
+  <!-- ════════════════════════════════════
+       PAGE 7: DOCUMENTATION
+       Your 2 academic sources are already
+       filled in. Add the rest below.
+  ════════════════════════════════════ -->
+  <section id="documentation" class="page">
+    <div class="page-shell">
+      <div class="page-head">
+        <div class="section-label">References</div>
+        <h1>Documentation</h1>
+        <p>All sources used in this project, with hyperlinks where available.</p>
+      </div>
+
+      <!-- PRIMARY SOURCE -->
+      <div class="doc-group">
+        <div class="doc-group-title">Primary Source</div>
+
+        <!-- ✏️ EDIT: Paste your primary source citation here.
+             Format: Author (if known). "Title." Publication or Collection, Year. Link. -->
+        <div class="source-entry ph">[Author if known]. "[Title of your primary source — document, image, or artifact]." [Publication or Collection], [Year]. [Hyperlink if available]</div>
+        <!-- Change class="source-entry ph" to just class="source-entry" when filled -->
+
+      </div>
+
+      <!-- ACADEMIC SECONDARY SOURCES — your 2 are already here -->
+      <div class="doc-group">
+        <div class="doc-group-title">Academic Secondary Sources</div>
+        <div class="source-entry">
+          Hoover, Karen W. et al. "Chlamydia Screening Among Females Aged 15–21 Years — Multiple Data Sources, United States, 1999–2010." <em>MMWR Supplements</em> 63, no. 2 (2014): 80–8.
+        </div>
+        <div class="source-entry">
+          Chambers, Laura C. et al. "Racial/Ethnic Disparities in the Lifetime Risk of Chlamydia trachomatis Diagnosis and Adverse Reproductive Health Outcomes Among Women in King County, Washington." <em>Clinical Infectious Diseases</em> 67, no. 4 (2018): 593–599. doi:10.1093/cid/ciy099.
+          <a href="https://academic.oup.com/cid/article/67/4/593/4840254" target="_blank">Link ↗</a>
+        </div>
+      </div>
+
+      <!-- POPULAR SECONDARY SOURCES -->
+      <div class="doc-group">
+        <div class="doc-group-title">Popular Secondary Sources</div>
+
+        <!-- ✏️ EDIT: Your newspaper/magazine article citation -->
+        <div class="source-entry ph">[Author]. "[Article Title]." <em>[Newspaper or Magazine Name]</em>, [Date]. [Hyperlink] — <em>Newspaper/magazine article.</em></div>
+
+        <!-- ✏️ EDIT: Your multimedia source (video, audio, or image slideshow) -->
+        <div class="source-entry ph">[Creator or Organization]. "[Title of Video, Audio, or Image Slideshow]." [Platform], [Date]. [Hyperlink or timestamps if video/audio] — <em>Multimedia resource.</em></div>
+
+      </div>
+
+      <!-- GRAPHS, CHARTS, INFOGRAPHICS -->
+      <div class="doc-group">
+        <div class="doc-group-title">Graphs, Charts, and Infographics</div>
+
+        <!-- ✏️ EDIT: Your first graph/chart citation -->
+        <div class="source-entry ph">[Organization]. "[Title of Graph or Chart]." [Source or Publication], [Year]. [Hyperlink]</div>
+
+        <!-- ✏️ EDIT: Your second graph/chart citation -->
+        <div class="source-entry ph">[Organization]. "[Title of Second Graph, Map, or Infographic]." [Source], [Year]. [Hyperlink]</div>
+
+        <!-- ✏️ EDIT: Third graphic — delete this entry if you only have 2 graphics -->
+        <div class="source-entry ph">[Organization]. "[Title of Third Graphic — delete this entry if not used]." [Source], [Year]. [Hyperlink]</div>
+
+      </div>
+
+      <!-- ADDITIONAL SOURCES — delete this whole block if you have none -->
+      <div class="doc-group">
+        <div class="doc-group-title">Additional Sources</div>
+
+        <!-- ✏️ EDIT: Add any extra sources here. Delete this entire doc-group block if not needed. -->
+        <div class="source-entry ph">[Add any additional sources here. Delete this entire section if you have none.]</div>
+
+      </div>
+
+    </div>
+  </section>
+  <!-- END DOCUMENTATION PAGE -->
+
+
+</main>
+
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+     DO NOT EDIT THE SCRIPT BELOW
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById(id);
+    if (target) target.classList.add('active');
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.remove('active');
+      const fn = link.getAttribute('onclick') || '';
+      if (fn.includes("'" + id + "'")) link.classList.add('active');
+    });
+    window.scrollTo(0, 0);
+  }
+</script>
+</body>
+</html>
